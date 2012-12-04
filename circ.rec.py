@@ -4,6 +4,7 @@
 from numpy import cos, sin, pi
 from numpy.random import random as rand
 import cairo
+from time import time as time
 
 PII = 2*pi
 N = 5000
@@ -11,7 +12,8 @@ BACK = 1.
 FRONT = 0.
 ALPHA = 0.05
 OUT = 'cr.a.0'
-M = 5
+M = 10
+DEFR = 0.1
 
 
 def ctxInit():
@@ -31,7 +33,7 @@ def CInit():
     for j in xrange(M):
       x = m + i*m
       y = m + j*m
-      r = 0.02
+      r = DEFR
       rep = 3 + int(rand()*2)
       C.append((x,y,r,rep))
 
@@ -46,6 +48,7 @@ def main():
   C = CInit()
 
   i = 0
+  ti = time()
   while C:
     x,y,r,rep = C.pop()
     if r < 1./N:
@@ -63,7 +66,8 @@ def main():
       C.append(c)
     i+=1
     if not i % 1000:
-      print i, r
+      print i, r, time()-ti
+      ti = time()
 
   sur.write_to_png('{:s}.png'.format(OUT))
 
