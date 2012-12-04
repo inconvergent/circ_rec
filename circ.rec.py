@@ -6,14 +6,15 @@ from numpy.random import random as rand
 import cairo
 from time import time as time
 
-PII = 2*pi
-N = 5000
-BACK = 1.
+PII   = 2*pi
+N     = 5000
+BACK  = 1.
 FRONT = 0.
-ALPHA = 0.05
-OUT = 'cr.a.0'
-M = 10
-DEFR = 0.1
+ALPHA = 0.2
+OUT   = 'cr.c.0'
+M     = 9
+DEFR  = 0.02
+RATIO = 0.5
 
 
 def ctxInit():
@@ -34,7 +35,7 @@ def CInit():
       x = m + i*m
       y = m + j*m
       r = DEFR
-      rep = 3 + int(rand()*2)
+      rep = 3 + int(rand()*3)
       C.append((x,y,r,rep))
 
   return C
@@ -61,7 +62,7 @@ def main():
     for t in xrange(rep):
       c = (x + cos(t*PII/rep+p)*r,
            y + sin(t*PII/rep+p)*r,
-           r*0.6,
+           r*RATIO,
            rep)
       C.append(c)
     i+=1
